@@ -30,6 +30,29 @@ async function run() {
       const result = await endGameTaskCollection.insertOne(item);
       res.send(result);
     });
+
+    // todo update
+    app.put("/todo/:id", async (req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      console.log(user);
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: user,
+      };
+
+      const result = await endGameTaskCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
+    });
+
+    //todo delete
+    app.delete("/todo/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await endGameTaskCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
   }
 }
