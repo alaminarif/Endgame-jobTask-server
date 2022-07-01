@@ -24,6 +24,13 @@ async function run() {
       res.send(oder);
     });
 
+    // todo load single
+    app.get("/todo/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await endGameTaskCollection.findOne(query);
+      res.send(result);
+    });
     // add to do post
     app.post("/todo", async (req, res) => {
       const item = req.body;
@@ -47,7 +54,7 @@ async function run() {
     });
 
     //todo delete
-    app.delete("/todo/:id", async (req, res) => {
+    app.delete("/t                odo/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await endGameTaskCollection.deleteOne(query);
