@@ -54,7 +54,7 @@ async function run() {
     });
 
     //todo delete
-    app.delete("/t                odo/:id", async (req, res) => {
+    app.delete("/todo/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await endGameTaskCollection.deleteOne(query);
