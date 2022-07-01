@@ -16,6 +16,7 @@ async function run() {
   try {
     await client.connect();
     const endGameTaskCollection = client.db("Endgame-job-task").collection("addtodo");
+    const endGameTaskCollectionUpdate = client.db("Endgame-job-task").collection("todoUpdate");
 
     // todo load
     app.get("/todo", async (req, res) => {
@@ -58,6 +59,12 @@ async function run() {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await endGameTaskCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    app.post("/todoupdate", async (req, res) => {
+      const item = req.body;
+      const result = await endGameTaskCollectionUpdate.insertOne(item);
       res.send(result);
     });
   } finally {
